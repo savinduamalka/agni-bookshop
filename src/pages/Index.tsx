@@ -10,6 +10,8 @@ import {
   Zap,
   Cpu,
   Users,
+  Smartphone,
+  Receipt,
 } from 'lucide-react';
 import heroEmbers from '@/assets/hero-embers.jpg';
 import ServiceCard from '@/components/ServiceCard';
@@ -51,6 +53,30 @@ const services = [
     pricing: [
       { item: 'Stationery Items', price: 'Rs. XXX' },
       { item: 'Computer Accessories', price: 'Rs. XXX' },
+    ],
+  },
+  {
+    icon: Smartphone,
+    title: 'Reloads',
+    description:
+      'Instant mobile reloads for Dialog, Mobitel, Hutch, and Airtel networks.',
+    pricing: [
+      { item: 'Dialog' },
+      { item: 'Mobitel' },
+      { item: 'Hutch' },
+      { item: 'Airtel' },
+    ],
+  },
+  {
+    icon: Receipt,
+    title: 'Bill Payments',
+    description:
+      'All kinds of utility bills handled here—water, electricity, phone, and more.',
+    pricing: [
+      { item: 'Water Bills' },
+      { item: 'Electricity Bills' },
+      { item: 'Telephone & Internet' },
+      { item: 'Other Utilities' },
     ],
   },
   {

@@ -8,7 +8,7 @@ interface ServiceCardProps {
   icon: LucideIcon;
   title: string;
   description: string;
-  pricing?: { item: string; price: string }[];
+  pricing?: { item: string; price?: string }[];
 }
 
 const ServiceCard = ({ icon: Icon, title, description, pricing }: ServiceCardProps) => {
@@ -52,7 +52,7 @@ const ServiceCard = ({ icon: Icon, title, description, pricing }: ServiceCardPro
                 {displayPricing.map((item, index) => (
                   <div key={index} className="flex justify-between items-center py-2 border-b border-border/50 last:border-0">
                     <span className="text-muted-foreground">{item.item}</span>
-                    <span className="font-semibold text-primary">{item.price}</span>
+                    <span className="font-semibold text-primary">{item.price ?? ""}</span>
                   </div>
                 ))}
               </div>
