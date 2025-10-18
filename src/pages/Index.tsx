@@ -14,7 +14,11 @@ import {
   Receipt,
 } from 'lucide-react';
 import heroEmbers from '@/assets/hero-embers.jpg';
-import ServiceCard from '@/components/ServiceCard';
+import { lazy, Suspense } from 'react';
+
+const ServiceCard = lazy(() => import('@/components/ServiceCard'));
+
+const serviceSkeletons = Array.from({ length: 6 });
 
 const services = [
   {
@@ -132,17 +136,17 @@ const advantages = [
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-background font-inter">
+    <div className="min-h-screen bg-black text-white font-inter">
       {/* Hero Section */}
       <section
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
         style={{
-          backgroundImage: `linear-gradient(to bottom, rgba(10, 10, 10, 0.7), rgba(10, 10, 10, 0.9)), url(${heroEmbers})`,
+          backgroundImage: `linear-gradient(to bottom, rgba(10, 10, 10, 0.8), rgba(0, 0, 0, 0.95)), url(${heroEmbers})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-background/50"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/90"></div>
 
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="font-poppins font-bold text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-foreground mb-6 animate-flicker">
@@ -156,7 +160,7 @@ const Index = () => {
             </span>
           </h1>
 
-          <p className="text-xl sm:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+          <p className="text-xl sm:text-2xl text-white/80 mb-8 max-w-3xl mx-auto">
             Your One-Stop Hub for Digital & Physical Solutions. <br />
             <span className="text-primary font-semibold">
               Igniting Your Ideas.
@@ -193,39 +197,49 @@ const Index = () => {
       </section>
 
       {/* Services Section */}
-      <section
-        id="services"
-        className="py-20 px-4 sm:px-6 lg:px-8 bg-background"
-      >
+      <section id="services" className="py-20 px-4 sm:px-6 lg:px-8 bg-black">
         <div className="max-w-7xl mx-auto">
           <h2 className="font-poppins font-bold text-4xl sm:text-5xl text-center mb-4">
             Our <span className="text-primary">Fiery</span> Array of Services
           </h2>
-          <p className="text-muted-foreground text-center mb-12 text-lg">
+          <p className="text-white/75 text-center mb-12 text-lg">
             Everything you need, all in one place
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {services.map((service, index) => (
-              <ServiceCard
-                key={index}
-                icon={service.icon}
-                title={service.title}
-                description={service.description}
-                pricing={service.pricing}
-              />
-            ))}
-          </div>
+          <Suspense
+            fallback={
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {serviceSkeletons.map((_, index) => (
+                  <div
+                    key={index}
+                    className="h-48 rounded-2xl border border-white/10 bg-white/5 animate-pulse"
+                  />
+                ))}
+              </div>
+            }
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {services.map((service, index) => (
+                <ServiceCard
+                  key={index}
+                  icon={service.icon}
+                  title={service.title}
+                  description={service.description}
+                  pricing={service.pricing}
+                />
+              ))}
+            </div>
+          </Suspense>
         </div>
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-muted/30">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-black border-y border-primary/15">
         <div className="max-w-7xl mx-auto">
           <h2 className="font-poppins font-bold text-4xl sm:text-5xl text-center mb-4">
             The <span className="text-primary">Agni</span> Advantage
           </h2>
-          <p className="text-muted-foreground text-center mb-12 text-lg">
+          <p className="text-white/75 text-center mb-12 text-lg">
             Why customers trust us with their projects
           </p>
 
@@ -235,12 +249,10 @@ const Index = () => {
                 <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-fire rounded-full mb-4 shadow-lg animate-glow">
                   <advantage.icon className="w-10 h-10 text-white" />
                 </div>
-                <h3 className="font-poppins font-semibold text-2xl mb-2 text-foreground">
+                <h3 className="font-poppins font-semibold text-2xl mb-2 text-white">
                   {advantage.title}
                 </h3>
-                <p className="text-muted-foreground text-lg">
-                  {advantage.description}
-                </p>
+                <p className="text-white/80 text-lg">{advantage.description}</p>
               </div>
             ))}
           </div>
@@ -248,18 +260,18 @@ const Index = () => {
       </section>
 
       {/* CTA Banner */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-background">
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-black">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="font-poppins font-bold text-4xl sm:text-5xl text-foreground mb-6">
+          <h2 className="font-poppins font-bold text-4xl sm:text-5xl text-white mb-6">
             Ready to Bring Your Project to Life?
           </h2>
-          <p className="text-muted-foreground text-xl mb-8">
+          <p className="text-white/80 text-xl mb-8">
             Get in touch with us today and let's ignite your ideas together
           </p>
           <Button
             variant="fireOutline"
             size="lg"
-            className="text-lg px-8 py-6 h-auto font-semibold"
+            className="text-lg px-8 py-6 h-auto font-semibold border border-primary/70 bg-gradient-to-r from-primary/20 via-transparent to-primary/20 hover:from-primary/30 hover:to-primary/30"
             onClick={() =>
               document
                 .getElementById('contact')
@@ -272,21 +284,18 @@ const Index = () => {
       </section>
 
       {/* Contact Section */}
-      <section
-        id="contact"
-        className="py-20 px-4 sm:px-6 lg:px-8 bg-background"
-      >
+      <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-black">
         <div className="max-w-5xl mx-auto">
           <h2 className="font-poppins font-bold text-4xl sm:text-5xl text-center mb-4">
             Get in <span className="text-primary">Touch</span>
           </h2>
-          <p className="text-muted-foreground text-center mb-12 text-lg">
+          <p className="text-white/75 text-center mb-12 text-lg">
             We're here to help with all your printing and design needs
           </p>
 
           <div className="max-w-3xl mx-auto space-y-10">
             <div>
-              <h3 className="font-poppins font-semibold text-2xl mb-4 text-foreground">
+              <h3 className="font-poppins font-semibold text-2xl mb-4 text-white">
                 Contact Information
               </h3>
               <div className="space-y-4">
@@ -313,7 +322,7 @@ const Index = () => {
                 </a>
 
                 <a
-                  href="mailto:agnibookshop@gmail.com"
+                  href="mailto:agnibookshop1@gmail.com"
                   className="flex items-center gap-3 text-lg text-muted-foreground hover:text-primary transition-colors group"
                 >
                   <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary/20 transition-colors">
@@ -331,7 +340,7 @@ const Index = () => {
                       />
                     </svg>
                   </div>
-                  <span>agnibookshop@gmail.com</span>
+                  <span>agnibookshop1@gmail.com</span>
                 </a>
 
                 <a
@@ -375,7 +384,7 @@ const Index = () => {
             </div>
 
             <div className="pt-2">
-              <p className="text-muted-foreground text-lg leading-relaxed">
+              <p className="text-white/75 text-lg leading-relaxed">
                 Visit us today or reach out through phone, email, or your
                 favorite social channel. We're committed to providing you with
                 fast, reliable, and professional services for all your printing,
@@ -387,38 +396,35 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-card border-t border-border py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center">
-            <h3 className="font-poppins font-bold text-3xl mb-2">
-              <span className="text-primary">Agni</span> Bookshop &
-              Communication
-            </h3>
-            <p className="text-muted-foreground text-lg mb-6 italic">
-              Igniting Ideas, Delivering Solutions.
-            </p>
+      <footer className="bg-black border-t border-primary/20 py-16 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto text-center space-y-6">
+          <h3 className="font-poppins font-bold text-3xl sm:text-4xl">
+            <span className="text-primary">Agni</span> Bookshop & Communication
+          </h3>
+          <p className="text-lg sm:text-xl text-white/80">
+            Igniting Ideas, Delivering Solutions.
+          </p>
 
-            <div className="flex justify-center gap-6 mb-6">
-              <a
-                href="tel:00725451111"
-                className="text-muted-foreground hover:text-primary transition-colors"
-              >
-                072 545 1111
-              </a>
-              <span className="text-border">|</span>
-              <a
-                href="mailto:agnibookshop@gmail.com"
-                className="text-muted-foreground hover:text-primary transition-colors"
-              >
-                agnibookshop@gmail.com
-              </a>
-            </div>
-
-            <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} Agni Bookshop & Communication. All
-              rights reserved.
-            </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 text-neutral-200">
+            <a
+              href="tel:00725451111"
+              className="transition-colors duration-200 hover:text-primary"
+            >
+              072 545 1111
+            </a>
+            <span className="hidden sm:inline-flex text-neutral-500">|</span>
+            <a
+              href="mailto:agnibookshop1@gmail.com"
+              className="transition-colors duration-200 hover:text-primary"
+            >
+              agnibookshop1@gmail.com
+            </a>
           </div>
+
+          <p className="text-sm text-neutral-500">
+            © {new Date().getFullYear()} Agni Bookshop & Communication. All
+            rights reserved.
+          </p>
         </div>
       </footer>
     </div>
