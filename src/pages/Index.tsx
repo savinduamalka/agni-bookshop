@@ -14,11 +14,30 @@ import {
   Receipt,
 } from 'lucide-react';
 import heroEmbers from '@/assets/hero-embers.jpg';
-import { lazy, Suspense } from 'react';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi,
+} from '@/components/ui/carousel';
+import { lazy, Suspense, useEffect, useState } from 'react';
 
 const ServiceCard = lazy(() => import('@/components/ServiceCard'));
 
 const serviceSkeletons = Array.from({ length: 6 });
+
+const galleryImageMap = import.meta.glob(
+  '@/assets/gallery/*.{png,jpg,jpeg,webp}',
+  {
+    eager: true,
+    as: 'url',
+  }
+);
+
+const galleryImages = Object.values(galleryImageMap) as string[];
+galleryImages.sort();
 
 const services = [
   {
@@ -135,6 +154,23 @@ const advantages = [
 ];
 
 const Index = () => {
+  const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
+
+  useEffect(() => {
+    if (!carouselApi) return;
+
+    const handle = window.setInterval(() => {
+      if (!carouselApi) return;
+      if (carouselApi.canScrollNext()) {
+        carouselApi.scrollNext();
+      } else {
+        carouselApi.scrollTo(0);
+      }
+    }, 4000);
+
+    return () => window.clearInterval(handle);
+  }, [carouselApi]);
+
   return (
     <div className="min-h-screen bg-black text-white font-inter">
       {/* Hero Section */}
@@ -258,6 +294,49 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Gallery Section */}
+      {galleryImages.length > 0 && (
+        <section className="py-20 px-4 sm:px-6 lg:px-8 bg-black" id="gallery">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="font-poppins font-bold text-4xl sm:text-5xl text-center mb-4">
+              Moments from <span className="text-primary">Agni</span>
+            </h2>
+            <p className="text-white/75 text-center mb-12 text-lg">
+              A glimpse into our vibrant workspace and the creations we bring to
+              life.
+            </p>
+
+            <Carousel
+              className="relative"
+              opts={{ loop: true, align: 'start' }}
+              setApi={setCarouselApi}
+            >
+              <CarouselContent className="-ml-2 md:-ml-4">
+                {galleryImages.map((src, index) => (
+                  <CarouselItem
+                    key={src}
+                    className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3"
+                  >
+                    <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-[0_10px_40px_rgba(255,89,0,0.15)]">
+                      <img
+                        src={src}
+                        alt={`Gallery item ${index + 1}`}
+                        loading="lazy"
+                        className="h-64 w-full object-cover transition-transform duration-700 ease-out hover:scale-105"
+                      />
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/10" />
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+
+              <CarouselPrevious className="hidden sm:flex -left-6 md:-left-10 bg-black/60 border-white/30 text-white hover:bg-black" />
+              <CarouselNext className="hidden sm:flex -right-6 md:-right-10 bg-black/60 border-white/30 text-white hover:bg-black" />
+            </Carousel>
+          </div>
+        </section>
+      )}
 
       {/* CTA Banner */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-black">
