@@ -141,12 +141,12 @@ const Index = () => {
       <section
         className="relative min-h-screen flex items-center justify-center overflow-hidden"
         style={{
-          backgroundImage: `linear-gradient(to bottom, rgba(10, 10, 10, 0.8), rgba(0, 0, 0, 0.95)), url(${heroEmbers})`,
+          backgroundImage: `linear-gradient(to bottom, rgba(10, 10, 10, 0.35), rgba(0, 0, 0, 0.7)), url(${heroEmbers})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/90"></div>
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/60"></div>
 
         <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="font-poppins font-bold text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-foreground mb-6 animate-flicker">
