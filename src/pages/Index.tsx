@@ -379,7 +379,7 @@ const Index = () => {
               </h3>
               <div className="space-y-4">
                 <a
-                  href="tel:00725451111"
+                  href="tel:0725451111"
                   className="flex items-center gap-3 text-lg text-muted-foreground hover:text-primary transition-colors group"
                 >
                   <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary/20 transition-colors">
@@ -486,7 +486,7 @@ const Index = () => {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 text-neutral-200">
             <a
-              href="tel:00725451111"
+              href="tel:0725451111"
               className="transition-colors duration-200 hover:text-primary"
             >
               072 545 1111
