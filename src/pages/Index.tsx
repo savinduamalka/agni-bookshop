@@ -26,13 +26,32 @@ import { lazy, Suspense, useEffect, useState } from 'react';
 
 const ServiceCard = lazy(() => import('@/components/ServiceCard'));
 
+// Typing animation hook
+const useTypingAnimation = (text: string, speed: number = 100) => {
+  const [displayedText, setDisplayedText] = useState('');
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    if (currentIndex < text.length) {
+      const timeout = setTimeout(() => {
+        setDisplayedText((prev) => prev + text[currentIndex]);
+        setCurrentIndex((prev) => prev + 1);
+      }, speed);
+      return () => clearTimeout(timeout);
+    }
+  }, [currentIndex, text, speed]);
+
+  return displayedText;
+};
+
 const serviceSkeletons = Array.from({ length: 6 });
 
 const galleryImageMap = import.meta.glob(
   '@/assets/gallery/*.{png,jpg,jpeg,webp}',
   {
     eager: true,
-    as: 'url',
+    query: '?url',
+    import: 'default',
   }
 );
 
@@ -155,6 +174,7 @@ const advantages = [
 
 const Index = () => {
   const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null);
+  const typedPhone = useTypingAnimation('0725451111', 150);
 
   useEffect(() => {
     if (!carouselApi) return;
@@ -175,16 +195,14 @@ const Index = () => {
     <div className="min-h-screen bg-black text-white font-inter">
       {/* Hero Section */}
       <section
-        className="relative min-h-screen flex items-center justify-center overflow-hidden"
+        className="hero-section relative min-h-[120vh] flex items-center justify-center overflow-hidden bg-black pt-20"
         style={{
-          backgroundImage: `linear-gradient(to bottom, rgba(10, 10, 10, 0.35), rgba(0, 0, 0, 0.7)), url(${heroEmbers})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
+          backgroundImage: `radial-gradient(circle at 50% 35%, rgba(0, 0, 0, 0) 52%, rgba(0, 0, 0, 0.45) 70%, rgba(0, 0, 0, 0.85) 85%, rgba(0, 0, 0, 1) 100%), linear-gradient(to bottom, rgba(10, 10, 10, 0.35), rgba(0, 0, 0, 0.7)), url(${heroEmbers})`,
         }}
       >
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/10 via-black/30 to-black/60"></div>
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/20 via-black/50 to-black/90"></div>
 
-        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center -mt-32">
           <h1 className="font-poppins font-bold text-5xl sm:text-6xl md:text-7xl lg:text-8xl text-foreground mb-6 animate-flicker">
             <span className="bg-gradient-fire bg-clip-text text-transparent">
               Agni
@@ -202,6 +220,32 @@ const Index = () => {
               Igniting Your Ideas.
             </span>
           </p>
+
+          {/* Contact Number with Typing Animation */}
+          <div className="mb-8 flex justify-center">
+            <a
+              href="tel:0725451111"
+              className="inline-flex items-center gap-3 text-2xl sm:text-3xl font-semibold text-white hover:text-primary transition-colors group px-6 py-3 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 hover:border-primary/50"
+            >
+              <svg
+                className="w-7 h-7 text-primary group-hover:scale-110 transition-transform"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                />
+              </svg>
+              <span className="font-mono tracking-wider">
+                {typedPhone}
+                <span className="animate-pulse">|</span>
+              </span>
+            </a>
+          </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Button

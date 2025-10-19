@@ -40,11 +40,11 @@ All colors MUST be HSL.
 
     /* Fire gradient */
     --gradient-fire: linear-gradient(135deg, hsl(0 100% 45%), hsl(16 100% 50%), hsl(33 100% 50%));
-    
+
     /* Glow effects */
     --glow-orange: 0 0 20px hsl(16 100% 50% / 0.5);
     --glow-orange-strong: 0 0 30px hsl(16 100% 50% / 0.8), 0 0 60px hsl(16 100% 50% / 0.4);
-    
+
     --sidebar-background: 0 0% 10%;
     --sidebar-foreground: 0 0% 90%;
     --sidebar-primary: 16 100% 50%;
@@ -101,5 +101,27 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .hero-section {
+    background-size: cover, cover, cover;
+    background-position: center, center, center 15%;
+    background-repeat: no-repeat;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-section {
+      background-size: cover, cover, cover;
+      background-position: center, center, center 15%;
+    }
+  }
+
+  @media (min-width: 1536px) {
+    .hero-section {
+      background-size: cover, cover, cover;
+      background-position: center, center, center 15%;
+    }
   }
 }
