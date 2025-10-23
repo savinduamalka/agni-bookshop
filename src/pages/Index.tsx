@@ -76,8 +76,14 @@ const services = [
     description:
       'Protect your important documents with our durable lamination service.',
     pricing: [
-      { item: 'A4 Size', price: 'Rs. XXX' },
-      { item: 'A3 Size', price: 'Rs. XXX' },
+      { item: 'A4 Size', price: 'Rs. 70' },
+      { item: 'A3 Size', price: 'Rs. 100' },
+      { item: 'Legal', price: 'Rs. 90' },
+      { item: 'A4 Large', price: 'Rs. 80' },
+      { item: 'A5 Size', price: 'Rs. 60' },
+      { item: '4R', price: 'Rs. 50' },
+      { item: 'ID', price: 'Rs. 40' },
+      { item: 'Soft Laminating (1 Feet)', price: 'Rs. 100' },
     ],
   },
   {
@@ -86,8 +92,8 @@ const services = [
     description:
       'Professional document formatting and design for resumes, reports, and more.',
     pricing: [
-      { item: 'Resume/CV Design', price: 'Rs. XXX' },
-      { item: 'Report Formatting', price: 'Rs. XXX' },
+      { item: 'Resume/CV Design', price: 'Rs. 300' },
+      { item: 'Type Setting- One Page', price: 'Rs. 80 - 120' },
     ],
   },
   {
@@ -95,8 +101,8 @@ const services = [
     title: 'Computer Accessories & Stationeries',
     description: 'Pens, notebooks, USBs, and everything you need to work.',
     pricing: [
-      { item: 'Stationery Items', price: 'Rs. XXX' },
-      { item: 'Computer Accessories', price: 'Rs. XXX' },
+      { item: 'Stationery Items', price: 'Call for pricing' },
+      { item: 'Computer Accessories', price: 'Call for pricing' },
     ],
   },
   {
@@ -129,8 +135,8 @@ const services = [
     description:
       'A curated collection of entertainment media for your leisure.',
     pricing: [
-      { item: 'Movies/Series', price: 'Rs. XXX' },
-      { item: 'Games Collection', price: 'Rs. XXX' },
+      { item: 'Movies/Series', price: 'Rs. 20' },
+      { item: 'Games Collection', price: 'Rs. 50' },
     ],
   },
   {
@@ -139,8 +145,8 @@ const services = [
     description:
       'Personalize mugs with your favorite photos and designs. Perfect for gifts!',
     pricing: [
-      { item: 'Single Color Print', price: 'Rs. XXX' },
-      { item: 'Full Color Print', price: 'Rs. XXX' },
+      { item: 'White Mug', price: 'Rs. 650' },
+      { item: 'Magic Mug', price: 'Rs. 999' },
     ],
   },
   {
@@ -149,8 +155,7 @@ const services = [
     description:
       'Custom rubber stamps and seals for official and personal use.',
     pricing: [
-      { item: 'Standard Rubber Stamp', price: 'Rs. XXX' },
-      { item: 'Custom Seal Design', price: 'Rs. XXX' },
+      { item: 'Flash Stamp', price: 'Rs. 1000' },
     ],
   },
 ];
